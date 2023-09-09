@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+<h1>Programming with COBOL</h1>
+<p>Without Cobol there would be no bank system (maybe ...)</p>
+<p>My first tries with Cobol date 2001 in Paris. I received a several thousands of lines COBOL algorithm to rewrite in Borland C++. This were difficult, but magic.</p>
+<p>Nowadays there persist a lot of systems running Cobol (despite the 2000's bug!)</p>
+<div>
+    <p>Here I tested on <a href="https://onecompiler.com/cobol">https://onecompiler.com/cobol</a> a program I made to find the N first prime numbers</p>
+    <p>The program is not exceptional : it adds '1' to any new tested number ... but hey, that's functioning :)</p>
+    <p>That shows a bit what it can</p>
+    <pre>
+    <code>
+
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PrimeNumbers.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01  Num          PIC 9(4) VALUE 2.
+01  PrimeCount   PIC 9(3) VALUE 0.
+01  IsPrime      PIC X VALUE 'Y'.
+01  Divisor      PIC 9(4) VALUE 3.
+01  RemDiv    PIC 9(4) VALUE 0.
+01  Quotient     PIC 9(4) VALUE 0.
+
+PROCEDURE DIVISION.
+DISPLAY 'List of the first 15 prime numbers:'.
+PERFORM UNTIL PrimeCount = 15
+    MOVE 'Y' TO IsPrime
+    PERFORM CheckPrime
+    IF Divisor * Divisor = Num
+        MOVE 'N' TO IsPrime
+    END-IF
+    IF IsPrime = 'Y'
+        ADD 1 TO PrimeCount
+        DISPLAY PrimeCount ' : ' Num
+    END-IF
+    ADD 1 TO Num
+END-PERFORM.
+STOP RUN.
+
+CheckPrime.
+IF Num <= 1
+    MOVE 'N' TO IsPrime
+END-IF
+IF Num = 2
+    MOVE 'Y' TO IsPrime
+END-IF
+IF Num = 3
+    MOVE 'Y' TO IsPrime
+ELSE
+    MOVE 3 TO Divisor
+    PERFORM CheckDivisor WITH TEST AFTER UNTIL Divisor * Divisor >= Num
+END-IF.
+
+CheckDivisor.
+DIVIDE Num BY 2 GIVING Quotient REMAINDER RemDiv
+DISPLAY ' CheckDivisor for ' Num ' and divisor ' 2 ' Quotient ' Quotient ' REMAINDER ' RemDiv
+IF RemDiv = 0
+    DISPLAY ' #1 Move N to IsPrime '
+    MOVE 'N' TO IsPrime
+    MOVE Num TO Divisor
+ELSE
+    DIVIDE Num BY Divisor GIVING Quotient REMAINDER RemDiv
+    DISPLAY ' CheckDivisor for ' Num ' and divisor ' Divisor ' Quotient ' Quotient ' REMAINDER ' RemDiv
+    IF RemDiv = 0
+        DISPLAY ' #2 Move N to IsPrime '
+        MOVE 'N' TO IsPrime
+        MOVE Num TO Divisor
+    ELSE
+        ADD 2 TO Divisor
+    END-IF
+END-IF.
+
+
+    </code>
+        </pre>
+
+    <pre>
+Output:
+
+List of the first 15 prime numbers:
+ CheckDivisor for 0002 and divisor 2 Quotient 0001 REMAINDER 0000
+ #1 Move N to IsPrime
+001 : 0003
+ CheckDivisor for 0004 and divisor 2 Quotient 0002 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0005 and divisor 2 Quotient 0002 REMAINDER 0001
+ CheckDivisor for 0005 and divisor 0003 Quotient 0001 REMAINDER 0002
+002 : 0005
+ CheckDivisor for 0006 and divisor 2 Quotient 0003 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0007 and divisor 2 Quotient 0003 REMAINDER 0001
+ CheckDivisor for 0007 and divisor 0003 Quotient 0002 REMAINDER 0001
+003 : 0007
+ CheckDivisor for 0008 and divisor 2 Quotient 0004 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0009 and divisor 2 Quotient 0004 REMAINDER 0001
+ CheckDivisor for 0009 and divisor 0003 Quotient 0003 REMAINDER 0000
+ #2 Move N to IsPrime
+ CheckDivisor for 0010 and divisor 2 Quotient 0005 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0011 and divisor 2 Quotient 0005 REMAINDER 0001
+ CheckDivisor for 0011 and divisor 0003 Quotient 0003 REMAINDER 0002
+004 : 0011
+ CheckDivisor for 0012 and divisor 2 Quotient 0006 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0013 and divisor 2 Quotient 0006 REMAINDER 0001
+ CheckDivisor for 0013 and divisor 0003 Quotient 0004 REMAINDER 0001
+005 : 0013
+ CheckDivisor for 0014 and divisor 2 Quotient 0007 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0015 and divisor 2 Quotient 0007 REMAINDER 0001
+ CheckDivisor for 0015 and divisor 0003 Quotient 0005 REMAINDER 0000
+ #2 Move N to IsPrime
+ CheckDivisor for 0016 and divisor 2 Quotient 0008 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0017 and divisor 2 Quotient 0008 REMAINDER 0001
+ CheckDivisor for 0017 and divisor 0003 Quotient 0005 REMAINDER 0002
+006 : 0017
+ CheckDivisor for 0018 and divisor 2 Quotient 0009 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0019 and divisor 2 Quotient 0009 REMAINDER 0001
+ CheckDivisor for 0019 and divisor 0003 Quotient 0006 REMAINDER 0001
+007 : 0019
+ CheckDivisor for 0020 and divisor 2 Quotient 0010 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0021 and divisor 2 Quotient 0010 REMAINDER 0001
+ CheckDivisor for 0021 and divisor 0003 Quotient 0007 REMAINDER 0000
+ #2 Move N to IsPrime
+ CheckDivisor for 0022 and divisor 2 Quotient 0011 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0023 and divisor 2 Quotient 0011 REMAINDER 0001
+ CheckDivisor for 0023 and divisor 0003 Quotient 0007 REMAINDER 0002
+008 : 0023
+ CheckDivisor for 0024 and divisor 2 Quotient 0012 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0025 and divisor 2 Quotient 0012 REMAINDER 0001
+ CheckDivisor for 0025 and divisor 0003 Quotient 0008 REMAINDER 0001
+ CheckDivisor for 0026 and divisor 2 Quotient 0013 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0027 and divisor 2 Quotient 0013 REMAINDER 0001
+ CheckDivisor for 0027 and divisor 0003 Quotient 0009 REMAINDER 0000
+ #2 Move N to IsPrime
+ CheckDivisor for 0028 and divisor 2 Quotient 0014 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0029 and divisor 2 Quotient 0014 REMAINDER 0001
+ CheckDivisor for 0029 and divisor 0003 Quotient 0009 REMAINDER 0002
+ CheckDivisor for 0029 and divisor 2 Quotient 0014 REMAINDER 0001
+ CheckDivisor for 0029 and divisor 0005 Quotient 0005 REMAINDER 0004
+009 : 0029
+ CheckDivisor for 0030 and divisor 2 Quotient 0015 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0031 and divisor 2 Quotient 0015 REMAINDER 0001
+ CheckDivisor for 0031 and divisor 0003 Quotient 0010 REMAINDER 0001
+ CheckDivisor for 0031 and divisor 2 Quotient 0015 REMAINDER 0001
+ CheckDivisor for 0031 and divisor 0005 Quotient 0006 REMAINDER 0001
+010 : 0031
+ CheckDivisor for 0032 and divisor 2 Quotient 0016 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0033 and divisor 2 Quotient 0016 REMAINDER 0001
+ CheckDivisor for 0033 and divisor 0003 Quotient 0011 REMAINDER 0000
+ #2 Move N to IsPrime
+ CheckDivisor for 0034 and divisor 2 Quotient 0017 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0035 and divisor 2 Quotient 0017 REMAINDER 0001
+ CheckDivisor for 0035 and divisor 0003 Quotient 0011 REMAINDER 0002
+ CheckDivisor for 0035 and divisor 2 Quotient 0017 REMAINDER 0001
+ CheckDivisor for 0035 and divisor 0005 Quotient 0007 REMAINDER 0000
+ #2 Move N to IsPrime
+ CheckDivisor for 0036 and divisor 2 Quotient 0018 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0037 and divisor 2 Quotient 0018 REMAINDER 0001
+ CheckDivisor for 0037 and divisor 0003 Quotient 0012 REMAINDER 0001
+ CheckDivisor for 0037 and divisor 2 Quotient 0018 REMAINDER 0001
+ CheckDivisor for 0037 and divisor 0005 Quotient 0007 REMAINDER 0002
+011 : 0037
+ CheckDivisor for 0038 and divisor 2 Quotient 0019 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0039 and divisor 2 Quotient 0019 REMAINDER 0001
+ CheckDivisor for 0039 and divisor 0003 Quotient 0013 REMAINDER 0000
+ #2 Move N to IsPrime
+ CheckDivisor for 0040 and divisor 2 Quotient 0020 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0041 and divisor 2 Quotient 0020 REMAINDER 0001
+ CheckDivisor for 0041 and divisor 0003 Quotient 0013 REMAINDER 0002
+ CheckDivisor for 0041 and divisor 2 Quotient 0020 REMAINDER 0001
+ CheckDivisor for 0041 and divisor 0005 Quotient 0008 REMAINDER 0001
+012 : 0041
+ CheckDivisor for 0042 and divisor 2 Quotient 0021 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0043 and divisor 2 Quotient 0021 REMAINDER 0001
+ CheckDivisor for 0043 and divisor 0003 Quotient 0014 REMAINDER 0001
+ CheckDivisor for 0043 and divisor 2 Quotient 0021 REMAINDER 0001
+ CheckDivisor for 0043 and divisor 0005 Quotient 0008 REMAINDER 0003
+013 : 0043
+ CheckDivisor for 0044 and divisor 2 Quotient 0022 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0045 and divisor 2 Quotient 0022 REMAINDER 0001
+ CheckDivisor for 0045 and divisor 0003 Quotient 0015 REMAINDER 0000
+ #2 Move N to IsPrime
+ CheckDivisor for 0046 and divisor 2 Quotient 0023 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0047 and divisor 2 Quotient 0023 REMAINDER 0001
+ CheckDivisor for 0047 and divisor 0003 Quotient 0015 REMAINDER 0002
+ CheckDivisor for 0047 and divisor 2 Quotient 0023 REMAINDER 0001
+ CheckDivisor for 0047 and divisor 0005 Quotient 0009 REMAINDER 0002
+014 : 0047
+ CheckDivisor for 0048 and divisor 2 Quotient 0024 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0049 and divisor 2 Quotient 0024 REMAINDER 0001
+ CheckDivisor for 0049 and divisor 0003 Quotient 0016 REMAINDER 0001
+ CheckDivisor for 0049 and divisor 2 Quotient 0024 REMAINDER 0001
+ CheckDivisor for 0049 and divisor 0005 Quotient 0009 REMAINDER 0004
+ CheckDivisor for 0050 and divisor 2 Quotient 0025 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0051 and divisor 2 Quotient 0025 REMAINDER 0001
+ CheckDivisor for 0051 and divisor 0003 Quotient 0017 REMAINDER 0000
+ #2 Move N to IsPrime
+ CheckDivisor for 0052 and divisor 2 Quotient 0026 REMAINDER 0000
+ #1 Move N to IsPrime
+ CheckDivisor for 0053 and divisor 2 Quotient 0026 REMAINDER 0001
+ CheckDivisor for 0053 and divisor 0003 Quotient 0017 REMAINDER 0002
+ CheckDivisor for 0053 and divisor 2 Quotient 0026 REMAINDER 0001
+ CheckDivisor for 0053 and divisor 0005 Quotient 0010 REMAINDER 0003
+ CheckDivisor for 0053 and divisor 2 Quotient 0026 REMAINDER 0001
+ CheckDivisor for 0053 and divisor 0007 Quotient 0007 REMAINDER 0004
+015 : 0053
+    </pre>
+</div>
+</body>
+</html>

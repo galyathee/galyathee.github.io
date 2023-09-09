@@ -4,62 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programming Website</title>
-    <link rel="stylesheet" href="styles.css"> <!-- You can link to your CSS file here -->
-
-    <style>
-        /* Style for the iframe */
-        iframe {
-            width: 100%;
-            height: 45px; /* Fixed height of the iframe */
-            border: none; /* Remove iframe border */
-            overflow: hidden; /* Hide any overflow content */
-            background-color: aquamarine;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body style="width: 100%; height: 100%;">
 
 <div>
-    <iframe id="imageFrame" src="index-banner.html"></iframe>
-</div>
 
-<!-- Main Content Area -->
-<div class="main-content">
-    <!-- Left Panel for Page Names -->
-    <nav class="left-panel">
-        <ul>
-            <li><a href="">Notes on the future of computer sciences</a>
-            <li><a href="">Programming languages</a>
-                <ul>
-                    <li><a href="">C Pointers</a></li>
-                    <li><a href="rust.html">RUST</a></li>
-                </ul>
-            </li>
-            <li><a href="">Algorithms</a>
-                <ul>
-                    <li><a href="">Why learning algorithms</a></li>
-                    <li><a href="">Bubble sort</a></li>
-                    <li><a href="">DFS</a></li>
-                </ul>
-            </li>
-            <li><a href="">ML/Deep Learning</a></li>
-            <!-- Add more page links as needed -->
-        </ul>
-    </nav>
-
-    <!-- Content Area for Displaying Selected Page -->
-    <div class="content">
-        <!-- The content of the selected page will be displayed here -->
-        <h1>Programming Items</h1>
-
-        <h4>RANDOM HEADER IMAGE @https://source.unsplash.com/random/400x200?sig=1</h4>
+    <div style="padding-right: 20px;">
+        <iframe id="imageFrame" src="index-banner.html" style="width: 100%; height: 45px; border: none; overflow: hidden; background-color: aquamarine;"></iframe>
     </div>
-</div>
 
-<!-- Footer (optional) -->
-<footer>
-    &copy; 2023 Galyathee Programming Website
-</footer>
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Left Panel for Page Names -->
+        <nav class="left-panel">
+            <ul>
+                <li><a href="">Notes on the future of computer sciences</a></li>
+                <li>Programming languages
+                    <ul>
+                        <li><a href="programming/cobol.html" target="display-area">COBOL</a></li>
+                        <li><a href="programming/rust.html" target="display-area">RUST</a></li>
+                    </ul>
+                </li>
+                <li><a href="algorithms.html" target="display-area">Algorithm</a></li>
+                <li><a href="">ML/Deep Learning</a></li>
+            </ul>
+        </nav>
+
+        <!-- Content Area for Displaying Selected Page -->
+        <iframe class="right-panel" name="display-area" src="index-welcome.html" style="background-color: #9beed0;"></iframe>
+    </div>
+
+    <!-- Footer (optional) -->
+    <footer>
+        &copy; 2023 Galyathee Programming Website
+    </footer>
+
+</div>
 
 <script src="js/index.js"></script>
 </body>
