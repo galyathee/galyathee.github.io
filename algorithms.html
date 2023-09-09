@@ -163,7 +163,9 @@
         </li>
     </ol>
 </div>
-<div id="display-content" style="width: 75%; float:right; background-color: darksalmon"></div>
+<div style="width: 75%; float:right; background-color: darksalmon;">
+<div id="display-content" style="padding-right: 5%; padding-left: 5%;"></div>
+</div>
 
 
 <div id="linear-regression" hidden>
@@ -182,45 +184,45 @@
     <p>The objective of the linear regression algorithm is to find the optimal values of mm and bb to minimize the prediction error. One of the commonly used methods to solve this problem is the least squares method, which involves minimizing the sum of the squares of the differences between actual values and values predicted by the model.</p>
 
     <p>Here is a simple example of a linear regression algorithm in <b>Lua</b>. In this example, we'll use a small dataset to perform linear regression and predict a value yy based on a value xx.</p>
-<pre>
+    <pre>
     <code>
-        -- Sample data (x and y)
-local x = {1, 2, 3, 4, 5}
-local y = {2, 4, 5, 4, 5}
+    -- Sample data (x and y)
+    local x = {1, 2, 3, 4, 5}
+    local y = {2, 4, 5, 4, 5}
 
--- Calculate the means of x and y values
-local n = #x
-local sum_x = 0
-local sum_y = 0
-for i = 1, n do
-    sum_x = sum_x + x[i]
-    sum_y = sum_y + y[i]
-end
-local mean_x = sum_x / n
-local mean_y = sum_y / n
+    -- Calculate the means of x and y values
+    local n = #x
+    local sum_x = 0
+    local sum_y = 0
+    for i = 1, n do
+        sum_x = sum_x + x[i]
+        sum_y = sum_y + y[i]
+    end
+    local mean_x = sum_x / n
+    local mean_y = sum_y / n
 
--- Calculate regression coefficients
-local numerator = 0
-local denominator = 0
-for i = 1, n do
-    numerator = numerator + (x[i] - mean_x) * (y[i] - mean_y)
-    denominator = denominator + (x[i] - mean_x)^2
-end
-local m = numerator / denominator
-local b = mean_y - m * mean_x
+    -- Calculate regression coefficients
+    local numerator = 0
+    local denominator = 0
+    for i = 1, n do
+        numerator = numerator + (x[i] - mean_x) * (y[i] - mean_y)
+        denominator = denominator + (x[i] - mean_x)^2
+    end
+    local m = numerator / denominator
+    local b = mean_y - m * mean_x
 
--- Prediction function
-function predict(x_value)
-    return m * x_value + b
-end
+    -- Prediction function
+    function predict(x_value)
+        return m * x_value + b
+    end
 
--- Use the prediction function
-local x_to_predict = 6
-local y_predicted = predict(x_to_predict)
-print("For x =", x_to_predict, "the prediction is y =", y_predicted)
+    -- Use the prediction function
+    local x_to_predict = 6
+    local y_predicted = predict(x_to_predict)
+    print("For x =", x_to_predict, "the prediction is y =", y_predicted)
 
     </code>
-</pre>
+    </pre>
     <p>Tested on that online compiler <a href="https://www.lua.org/cgi-bin/demo">LUA Online Compiler</a></p>
     <p>Obtained result:</p>
     <code>For x =	6	the prediction is y =	5.8</code>
