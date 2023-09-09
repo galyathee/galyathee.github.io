@@ -17,6 +17,7 @@
     <li><a href="https://www.algorist.com/"><b>The Algorithm Design Manual, 3rd Edition</b> by Steven Skiena</a></li>
 </ul>
 <p>I hope, step by step, to propose a detailed view of all these algorithms and data structures. I believe that it is worth it.</p>
+<div style="width: 25%; float:left; background-color: burlywood">
     <ol>
         <li><strong>Sorting Algorithms</strong>
             <ul>
@@ -107,7 +108,7 @@
         </li>
         <li><strong>Machine Learning Algorithms</strong>
             <ul>
-                <li>Linear Regression</li>
+                <li style="color:red" onclick="document.getElementById('display-content').innerHTML = document.getElementById('linear-regression').innerHTML;">Linear Regression</li>
                 <li>Logistic Regression</li>
                 <li>k-Nearest Neighbors (k-NN)</li>
                 <li>Decision Trees</li>
@@ -161,5 +162,69 @@
             </ul>
         </li>
     </ol>
+</div>
+<div id="display-content" style="width: 75%; float:right; background-color: darksalmon"></div>
+
+
+<div id="linear-regression" hidden>
+    <p>The linear regression algorithm is a machine learning technique used to model the linear relationship between a dependent variable (or target) and one or more independent variables (or features). It is primarily used for regression tasks, meaning it predicts a numerical value based on other numerical data. The goal of linear regression is to find the best straight line (or hyperplane) that fits the data.</p>
+
+    <p>The general equation for linear regression with a single independent variable is as follows:</p>
+
+    <code>y=mx+by=mx+b</code>
+
+    <p>Where:<br/>
+    yy is the dependent variable we are trying to predict.<br/>
+    xx is the independent variable (feature).<br/>
+    mm is the slope of the regression line.<br/>
+        bb is the y-intercept.</p>
+
+    <p>The objective of the linear regression algorithm is to find the optimal values of mm and bb to minimize the prediction error. One of the commonly used methods to solve this problem is the least squares method, which involves minimizing the sum of the squares of the differences between actual values and values predicted by the model.</p>
+
+    <p>Here is a simple example of a linear regression algorithm in <b>Lua</b>. In this example, we'll use a small dataset to perform linear regression and predict a value yy based on a value xx.</p>
+<pre>
+    <code>
+        -- Sample data (x and y)
+local x = {1, 2, 3, 4, 5}
+local y = {2, 4, 5, 4, 5}
+
+-- Calculate the means of x and y values
+local n = #x
+local sum_x = 0
+local sum_y = 0
+for i = 1, n do
+    sum_x = sum_x + x[i]
+    sum_y = sum_y + y[i]
+end
+local mean_x = sum_x / n
+local mean_y = sum_y / n
+
+-- Calculate regression coefficients
+local numerator = 0
+local denominator = 0
+for i = 1, n do
+    numerator = numerator + (x[i] - mean_x) * (y[i] - mean_y)
+    denominator = denominator + (x[i] - mean_x)^2
+end
+local m = numerator / denominator
+local b = mean_y - m * mean_x
+
+-- Prediction function
+function predict(x_value)
+    return m * x_value + b
+end
+
+-- Use the prediction function
+local x_to_predict = 6
+local y_predicted = predict(x_to_predict)
+print("For x =", x_to_predict, "the prediction is y =", y_predicted)
+
+    </code>
+</pre>
+    <p>Tested on that online compiler <a href="https://www.lua.org/cgi-bin/demo">LUA Online Compiler</a></p>
+    <p>Obtained result:</p>
+    <code>For x =	6	the prediction is y =	5.8</code>
+</div>
+
 </body>
 </html>
