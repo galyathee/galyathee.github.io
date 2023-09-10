@@ -10,13 +10,45 @@
 <p>For sure, it is very difficult to provide an exhaustive list. There are too many domains, too many fields. Data structures are also constantly evolving. Algorithmic for biophysics does not solve the same problems as the algorithmic for synchronizing trains. That list is hence there to propose a first feeling of the domain.</p>
 <p>Is it worth - today - to learn algorithms? I believe "yes". Certainly, there are a lot of libraries to handle these. Programming languages already propose data structures exposing a "sort()" function or graph traversing algorithms. There are also means to synchronize threads or libs to handle protocols.</p>
 <p>Studying algorithms is like knowing the details behind the scenes. It is lazy, difficult and not always rewarding.</p>
-<p>Here is but first a list of the books that influenced me the most:</p>
+<p>Going more concrete, here is a list of the books that influenced me the most:</p>
 <ul>
     <li><a href="https://www-cs-faculty.stanford.edu/~knuth/aa.html"><b>Selected Papers on Analysis of Algorithms</b> by Donald Knuth (LaTeX father!)</a></li>
     <li><a href="http://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"><b>Introduction to algorithms</b> by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein</a></li>
     <li><a href="https://www.algorist.com/"><b>The Algorithm Design Manual, 3rd Edition</b> by Steven Skiena</a></li>
 </ul>
-<p>I hope, step by step, to propose a detailed view of all these algorithms and data structures. I believe that it is worth it.</p>
+<p>I would like, step by step, to propose a detailed view of all these algorithms and data structures. I believe that it is worth it.</p>
+<p>I would like to explain why mathematicians and computer scientists expressed the need to develop it.
+    Some say "we can do everything with hashmaps, no need to deal with complex structures and algorithms</p>
+<p>If I quite agree on that, the knowledge of algorithms cannot be bad</p>
+<p>Look at this Perl program:</p>
+    <pre>
+        <code>
+            sub quicksort {
+            my @array = @_;
+            return @array if @array < 2;  # Base case: If the array has 0 or 1 elements, it's already sorted.
+
+            my $pivot = shift @array;    # Choose a pivot element.
+
+            my @less_than_pivot = grep { $_ < $pivot } @array;
+            my @greater_than_pivot = grep { $_ >= $pivot } @array;
+
+            return (quicksort(@less_than_pivot), $pivot, quicksort(@greater_than_pivot));
+            }
+
+            # Example usage:
+            my @unsorted_array = (5, 2, 9, 3, 6, 8, 56, 3, 45, 56, 67 ,1, 23, 0, 98, -3, 4);
+            my @sorted_array = quicksort(@unsorted_array);
+            print "Sorted Array: @sorted_array\n";
+        </code>
+    </pre>
+<br/> and here is the output of the program <code>Sorted Array: -3 0 1 2 3 3 4 5 6 8 9 23 45 56 56 67 98</code> tested on <a href="https://www.jdoodle.com/execute-perl-online/">JDoodle</a>
+<p> This looks so simple ; and it has such a great performance. I Believe it is worth knowing it. Nowadays, with Big Data era, sorting things needs such algorithms. At least we should know that they exist and which kind of problem they help to solve.</p>
+
+<p>
+It is time to have a look at the list. Every item will be linked to serious documentation.
+</p>
+<br/>
+<section>
 <div style="width: 25%; float:left; background-color: burlywood">
     <ol>
         <li><strong>Sorting Algorithms</strong>
@@ -163,6 +195,7 @@
         </li>
     </ol>
 </div>
+</section>
 <div style="width: 75%; float:right; background-color: darksalmon;">
 <div id="display-content" style="padding-right: 5%; padding-left: 5%;"></div>
 </div>
