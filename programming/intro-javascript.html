@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+
+
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #111;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .waviy {
+        position: relative;
+    }
+    .waviy span {
+        position: relative;
+        display: inline-block;
+        font-size: 40px;
+        color: #fff;
+        text-transform: uppercase;
+        animation: flip 2s infinite;
+        animation-delay: calc(.1s * var(--i))
+    }
+    @keyframes flip {
+        0%,80% {
+            transform: rotateY(360deg)
+        }
+    }
+
+    .anim-content {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .inside-anim-content {
+        position: absolute;
+        font-family: "Poppins", sans-serif;
+        font-size: 4em;
+        width: 100%;
+        height: 10%;
+        top: 0;
+        left: 0;
+        transform: translate(50%, 50%);
+    }
+
+    .anim-content h2:nth-child(1) {
+        color: transparent;
+        -webkit-text-stroke: 2px #03a9f4;
+    }
+
+    .anim-content h2:nth-child(2) {
+        color: #03a9f4;
+        animation: that-animate 4s ease-in-out infinite;
+    }
+
+    @keyframes that-animate {
+        0%,
+        100% {
+            clip-path: polygon(
+                    0% 45%,
+                    16% 44%,
+                    33% 50%,
+                    54% 60%,
+                    70% 61%,
+                    84% 59%,
+                    100% 52%,
+                    100% 100%,
+                    0% 100%
+            );
+        }
+
+        50% {
+            clip-path: polygon(
+                    0% 60%,
+                    15% 65%,
+                    34% 66%,
+                    51% 62%,
+                    67% 12%,
+                    84% 45%,
+                    100% 46%,
+                    100% 100%,
+                    0% 100%
+            );
+        }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="anim-content">
+    <h2 class="inside-anim-content">Learn Me ...</h2>
+    <h2 class="inside-anim-content">Learn Me ...</h2>
+</div>
+
+    <div class="waviy">
+        <span style="--i:1">F</span>
+        <span style="--i:2">o</span>
+        <span style="--i:3">l</span>
+        <span style="--i:4">l</span>
+        <span style="--i:5">o</span>
+        <span style="--i:6">w</span>
+        <br/>
+        <span style="--i:8">T</span>
+        <span style="--i:9">h</span>
+        <span style="--i:10">e</span>
+        <br/>
+        <span style="--i:12">W</span>
+        <span style="--i:13">h</span>
+        <span style="--i:14">i</span>
+        <span style="--i:15">t</span>
+        <span style="--i:16">e</span>
+        <br/>
+        <span style="--i:18">R</span>
+        <span style="--i:19">a</span>
+        <span style="--i:20">b</span>
+        <span style="--i:21">b</span>
+        <span style="--i:22">i</span>
+        <span style="--i:23">t</span>
+    </div>
+
+
+<script>
+    setTimeout(function () {
+        window.location.href = "javascript.html"; //will redirect to your blog page (an ex: blog.html)
+    }, 7000);
+</script>
+
+</body>
+</html>
