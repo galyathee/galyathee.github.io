@@ -68,9 +68,33 @@
     Resolving dependencies...
     Up to date
   </pre>
+  </div>
+</section>
+
+<p></p>
+<section style="border-style: solid; border-width: 1px;">
+  <div style="padding-left: 10px;">
+    <p><b>Compilation</b></p>
+    <p>If you wrote some code and saved it in a .hs file, you can now compile via ghc (Glasgow Haskell Compiler) with the simple: <code>ghc -o my-haskell-prog my-haskell-prog.hs</code><br/>
+      And if everything is alright you should see your program. Let's have a look at the hello world to begin safe:</p>
+    <p>Save that code in a file named hello.hs: <br/>
+      <code>main = putStrLn "Hello, World!"</code> and compile through <code>ghc -o hello hello.hs</code><br/>
+      You should be able to see something like this:<br/>
+    <pre>
+    (base) haskell-test % ghc -o hello hello.hs
+    Loaded package environment from /Users/xxx/.ghc/aarch64-darwin-9.4.4/environments/default
+    [1 of 2] Compiling Main             ( hello.hs, hello.o )
+    [2 of 2] Linking hello
+
+    (base) haskell-test % ./hello
+    Hello, World!
+
+    (base) haskell-test %
+    </pre>
 
   </div>
 </section>
+
 <p></p>
 <section style="border-style: solid; border-width: 1px;">
   <div style="padding-left: 10px;">
