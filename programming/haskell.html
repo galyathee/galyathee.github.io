@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+<h1>Programming with HASKELL</h1>
+<section style="border-style: solid; border-width: 1px;">
+  <div style="padding-left: 10px;">
+    <p><b>Some documentation</b></p>
+    <p><a href="http://wiki.haskell.org/Learning_Haskell">Haskell Wiki</a></p>
+    <p><a href="https://www.haskell.org/tutorial/">Haskell 98 Doc</a></p>
+    <p><a href="https://www.haskell.org/cabal/">Cabal documentation</a></p>
+    <p><a href="https://downloads.haskell.org/~ghc/5.04.1/docs/html/users_guide/ghci-commands.html">GHCi commands</a></p>
+  </div>
+</section>
+<p></p>
+<section style="border-style: solid; border-width: 1px;">
+  <div style="padding-left: 10px;">
+    <p><b>Installation</b></p>
+    <p>Install on OSX start: <code>brew install haskell-stack</code></p>
+    <p>Then install the command prompt "ghci" via <code>brew install ghc</code><br/>
+    <p>Then install cabal via <code>brew install cabal-install</code><br/>
+    <u>e.g of the installation process</u><br/>
+  <pre>(base) haskell-test % brew install cabal-install
+  ==> Downloading https://formulae.brew.sh/api/formula.jws.json
+  ##################################################################################################################################################### 100.0%
+  ==> Downloading https://formulae.brew.sh/api/cask.jws.json
+  ##################################################################################################################################################### 100.0%
+  ==> Downloading https://ghcr.io/v2/homebrew/core/cabal-install/manifests/3.8.1.0-1
+  ##################################################################################################################################################### 100.0%
+  ==> Fetching cabal-install
+  ==> Downloading https://ghcr.io/v2/homebrew/core/cabal-install/blobs/sha256:40ab69cd21f54e597795b71abf344665072feb6ac2b03bd2bae0e04bb631ef83
+  ##################################################################################################################################################### 100.0%
+  ==> Pouring cabal-install--3.8.1.0.arm64_ventura.bottle.1.tar.gz
+  🍺  /opt/homebrew/Cellar/cabal-install/3.8.1.0: 7 files, 88.9MB
+  ==> Running `brew cleanup cabal-install`...
+  Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+  Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).
+
+  (base) haskell-test % cabal --version
+  cabal-install version 3.8.1.0
+  compiled using version 3.8.1.0 of the Cabal library
+  </pre>
+    <p>Then update cabal package list via <code>cabal update</code></p>
+    <p>If you wish to write 2D games, I suggest to install <a href="https://hackage.haskell.org/package/gloss">gloss</a>: <code>cabal install gloss</code><br/>
+    In the case, take care to add gloss to your cabal lib, as suggested in the installation log:<br/>
+    <pre>
+    ...
+    Starting     gloss-1.13.2.2 (lib)
+    Building     gloss-1.13.2.2 (lib)
+    Installing   gloss-1.13.2.2 (lib)
+    Completed    gloss-1.13.2.2 (lib)
+    Warning:
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @ WARNING: Installation might not be completed as desired! @
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    The command "cabal install [TARGETS]" doesn't expose libraries.
+    * You might have wanted to add them as dependencies to your package. In this
+    case add "gloss" to the build-depends field(s) of your package's .cabal file.
+    * You might have wanted to add them to a GHC environment. In this case use
+    <b style="color:red">"cabal install --lib gloss"</b>. The "--lib" flag is provisional: see
+    https://github.com/haskell/cabal/issues/6481 for more information.
+
+    (base) haskell-test % cabal install --lib gloss
+    Resolving dependencies...
+    Up to date
+  </pre>
+
+  </div>
+</section>
+<p></p>
+<section style="border-style: solid; border-width: 1px;">
+  <div style="padding-left: 10px;">
+    <p><b>Test in the prompt</b></p>
+    you can then start a prompt via the command ghci and type some commands, and exit via ":quit", e.g.<br/>
+  <pre>
+    (base) haskell-test % ghci
+    GHCi, version 9.4.4: https://www.haskell.org/ghc/  :? for help
+
+    ghci> 3*77
+    231
+
+    ghci> 5 * (-2)
+    -10
+
+    ghci> 123 > 98
+    True
+
+    ghci> 99 > 99.1
+    False
+
+    ghci> 'hello'
+
+    interactive>:5:1: error:
+        • Syntax error on 'hello'
+          Perhaps you intended to use TemplateHaskell or TemplateHaskellQuotes
+        • In the Template Haskell quotation 'hello'
+
+    ghci> if 10 > 9 then 'hello' else 'goodbye'
+
+    interactive>:6:16: error:
+        • Syntax error on 'hello'
+          Perhaps you intended to use TemplateHaskell or TemplateHaskellQuotes
+        • In the Template Haskell quotation 'hello'
+
+    ghci> if 10 > 9 then 1 else 0
+    1
+
+    ghci> let x = 4
+    ghci> x * x * x
+    64
+
+    ghci> let y = 4 in y * x
+    16
+
+    ghci> :type False
+    False :: Bool
+
+    ghci> :quit
+    Leaving GHCi.
+  </pre>
+  </div>
+</section>
+
+</body>
+</html>
