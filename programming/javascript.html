@@ -97,9 +97,9 @@
 <h2>If you had to know only 1 programming language, this should be <a style="color: red; font-family: 'Courier New', serif;">Javascript</a>. Why ? Because the entire WWW is based on it.</h2>
 
 <h3 class="title">
-    <span class="title-word title-word-1">Where to begin, I mean we have less than 1000 pages right?</span><br/>
+    <span class="title-word title-word-1"><b>Where to begin, I mean we have less than 1000 pages right?</b></span><br/>
     <span class="title-word title-word-2" style="padding-left: 50px;">Maybe we should begin with <b><a href="https://docs.npmjs.com/about-npm">NPM huge library</a></b></span><br/>
-    <span class="title-word title-word-3" style="padding-left: 100px;">but I decided to ignore it in a first step.</span><br/>
+    <span class="title-word title-word-3" style="padding-left: 100px;"><i>but I decided to ignore it in a first step.</i></span><br/>
     <span class="title-word title-word-4" style="padding-left: 150px;">Maybe we should talk about <a href="https://en.wikipedia.org/wiki/ECMAScript">EcmaScript</a>?!</span>
 </h3>
 
@@ -109,14 +109,10 @@
 </p>
 
 
-    <p>JS is just more than big. Can we pretend having a look at it and break some Myths about it?</p>
-    <p>First, let's put some names related to JS, maybe you could just make as if you take one or two.<br/>
-    Do as if you (pick one truth) {Knew these names, Worked with it, Dreamt to work with it, Loved or Hated it, Realized that there is a lot of marketing behind in fact,Did not control it and you should just have learnt JS ...}
-</p>
+    <p>JS is just more than big. I can only pretend having a brief look at it and break some Myths along the way</p>
+    <p>First, let's put some names related to JS</p>
 <p>
 <ul>
-    <li>So the list:
-    <ul>
         <li><a href="https://dart.dev/">DART</a> (yes I know, it is not JS. But it can be transpiled to JS, etch!) with its <a href="https://flutter.dev/">Flutter</a> framework.</li>
         <li>REACT</li>
         <li>Vue.js</li>
@@ -133,12 +129,10 @@
         <li>Nuxt.js</li>
         <li>Next.js</li>
         <li>Ionic</li>
-    </ul>
-    </li>
 </ul>
 
 <p>Click the buttons for a wonderful user experience:</p>
-<button id="colorButton">I believe that one changes the background color</button>
+<button id="colorButton"></button>
 <button id="hiding-button" onclick="document.getElementById('hiding-button').hidden = true">Click to send this button to MARS</button>
 <button id="spending-button" onclick="document.getElementById('spending-button').innerHTML = 'Thank you!'; document.getElementById('spending-button').style.background='#123456';document.getElementById('spending-button').style.color='#FEDCBA'">Click to spend 200 BTC to an empty wallet</button>
 <button onclick="alert('Boom');">Click to eject your PC</button>
@@ -163,14 +157,18 @@
         // Generate a random color
         // Change the background color of the body
         body.style.backgroundColor = getRandomColor();
+        // Set button text with current color value
+        document.getElementById('colorButton').innerHTML="Change background color. Current is: " + body.style.backgroundColor;
     });
-    // JavaScript code ends here
+    // Set button text with current color value
+    bgColor = window.getComputedStyle( document.body ,null).getPropertyValue('background-color');
+    document.getElementById('colorButton').innerHTML="Change background color. Current is: " + bgColor;
 </script>
 
 
 <p><b>That's huge already</b> an we did not scratch the surface of the "ecosystem" around. But we have to name - at least - some categories in that ecosystem for which JS libraries were written</p>
 <ul>
-    <li>Data visualization: D3.js, Chart.js</li>
+    <li>Data visualization: <a href="https://d3js.org/">D3.js</a>, <a href="https://www.chartjs.org/">Chart.js</a></li>
     <li>True type fonts management: <a href="https://www.npmjs.com/package/fontjs">font.js</a></li>
     <li>Animations: <a href="https://animejs.com/">Anime.js</a></li>
     <li>Work on images: <a href="https://github.com/fengyuanchen/cropperjs">Cropper.js</a>, <a href="https://github.com/jimp-dev/jimp">jimp</a></li>
