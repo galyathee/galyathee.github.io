@@ -16,6 +16,7 @@
     <div style="padding-left: 45px;" onclick="closeNav()"><a href="programming/cobol.html" target="display-area">COBOL</a></div>
     <div style="padding-left: 45px;" onclick="closeNav()"><a href="programming/rust.html" target="display-area">RUST</a></div>
     <div style="padding-left: 45px;" onclick="closeNav()"><a href="programming/haskell.html" target="display-area">HASKELL</a></div>
+    <div style="padding-left: 45px;" onclick="closeNav()"><a href="programming/elixir.html" target="display-area">ELIXIR</a></div>
     <div onclick="closeNav()"><a href="algorithms.html" target="display-area">Algorithm</a></div>
     <div onclick="closeNav()"><a href="">ML/Deep Learning</a></div>
 </div>
@@ -44,11 +45,37 @@
 
     <!-- Footer (optional) -->
     <footer>
-        &copy; 2023 Galyathee Programming Website - v0.2 - !!!Under construction!!!
+        &copy; 2023 Galyathee Programming Website - v0.2    &#128679; Always Under construction &#128679;    <a href="#" id="popup-link" style="color: indianred">Cookies & Data Protection</a>
     </footer>
 
 </div>
 
+<div id="popup-window">
+    <h1>Cookies & Data Protection</h1>
+    <p>This website is not generating any cookie. This website is not storing any user data.</p>
+    <p>Diese Website erzeugt keine Cookies. Diese Website speichert keine Benutzerdaten.</p>
+    <p>Questo sito web non genera alcun cookie. Questo sito web non memorizza alcun dato dell'utente.</p>
+    <p>Este sitio web no genera ninguna cookie. Este sitio web no almacena ningún dato del usuario.</p>
+    <p>Ce site web ne génère aucun cookie. Ce site web ne stocke aucune donnée utilisateur.</p>
+    <p>このウェブサイトはクッキーを生成しません。このウェブサイトはユーザーデータを保存しません。</p>
+    <button id="close-button">Close / Fermer / Schließen / フェルメール</button>
+</div>
+
 <script src="js/index.js"></script>
+<script>
+    // Get the elements by their ID
+    let popupLink = document.getElementById("popup-link");
+    let popupWindow = document.getElementById("popup-window");
+    let closeButton = document.getElementById("close-button");
+    // Show the pop-up window when the link is clicked
+    popupLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        popupWindow.style.display = "block";
+    });
+    // Hide the pop-up window when the close button is clicked
+    closeButton.addEventListener("click", function() {
+        popupWindow.style.display = "none";
+    });
+</script>
 </body>
 </html>

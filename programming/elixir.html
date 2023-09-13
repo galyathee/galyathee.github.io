@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+<h1>Programming with <s>ERLANG</s> ELIXIR</h1>
+<section style="border-style: solid; border-width: 1px;">
+    <div style="padding-left: 10px;">
+        <p><b>Useful Links</b></p>
+        <p><a href="https://en.wikipedia.org/wiki/Elixir_(programming_language)">Wikipedia page</a></p>
+        <p><a href="https://elixir-lang.org/">The doc site</a></p>
+    </div>
+</section>
+<p>Attempt to summarize:<br/>
+    Elixir is a dynamic, functional programming language designed for building scalable and fault-tolerant applications. It was created by José Valim and first released in 2011.
+</p>
+<p>25 facts about it</p>
+<ul>
+    <li>Elixir is built on the <a href="https://www.erlang.org/">Erlang</a> Virtual Machine (BEAM), renowned for its concurrency and fault-tolerance capabilities.</li>
+    <li>It emphasizes immutability, making it easier to reason about and debug concurrent code.</li>
+    <li>Elixir code is organized into lightweight processes, not OS-level threads, offering efficient concurrency handling.</li>
+    <li>It follows a <a href="https://en.wikipedia.org/wiki/Functional_programming">functional programming</a> paradigm, with first-class functions and support for higher-order functions.</li>
+    <li>Elixir's syntax is clear and expressive, inspired by <a href="https://www.ruby-lang.org/en/">Ruby</a>, making it accessible to a broad range of developers.</li>
+    <li>It uses <a href="https://en.wikipedia.org/wiki/Pattern_matching">pattern matching</a> extensively, simplifying code and error handling.</li>
+    <li>Elixir promotes <a href="https://www.brianstorti.com/the-actor-model/">"Actor Model"</a> concurrency via processes that communicate through message passing.</li>
+    <li>Fault tolerance is a core feature, with processes easily isolated and monitored, allowing for system self-healing.</li>
+    <li>Elixir's ecosystem includes the Mix build tool, Hex package manager, and a thriving library community.</li>
+    <li><a href="https://www.phoenixframework.org/">Phoenix</a>, a popular Elixir web framework, powers robust and high-performance web applications.</li>
+    <li>Elixir is known for its real-time capabilities, making it suitable for chat applications, IoT, and gaming.</li>
+    <li>Hot code swapping enables seamless updates to running systems with minimal downtime.</li>
+    <li>The Erlang standard library is readily accessible in Elixir, broadening its capabilities.</li>
+    <li>Elixir's tooling includes a robust test framework (ExUnit) and comprehensive documentation generation.</li>
+    <li>It has a strong focus on developer productivity, encouraging clean and maintainable code.</li>
+    <li>Elixir's macro system allows metaprogramming for code generation and custom DSLs.</li>
+    <li>It supports distributed computing, enabling the development of highly available systems.</li>
+    <li>Elixir's performance is optimized for multicore CPUs, taking full advantage of modern hardware.</li>
+    <li>Elixir is open-source and has a passionate community that fosters growth and improvement.</li>
+    <li>Elixir is well-suited for building reliable, distributed, and fault-tolerant systems, making it a popular choice for applications requiring high availability and scalability.</li>
+    <li>Elixir was inspired by Erlang, a battle-tested language used by companies like WhatsApp and Ericsson for building highly reliable telecommunications systems.</li>
+    <li>The Elixir programming community is known for its friendly and supportive atmosphere, making it an excellent choice for newcomers.</li>
+    <li>Elixir has a built-in mix tool for project management, which simplifies dependency management, testing, and building releases.</li>
+    <li>Elixir applications can be easily containerized using tools like Docker, making deployment and scaling straightforward.</li>
+    <li>Elixir's creator, <a href="https://github.com/josevalim">José Valim</a>, is also known for his contributions to the Ruby on Rails framework before he started working on Elixir. His experience in web development heavily influenced Elixir's design and ease of use.</li>
+</ul>
+
+<p>
+Elixir's combination of functional programming principles, concurrency, and fault tolerance makes it a compelling choice for building robust, scalable, and real-time systems.
+</p>
+
+<p>Code to demonstrate how to calculate the MD5 of a given String</p>
+<pre>
+<code>
+    # md5_hash.ex
+
+    defmodule MD5Hash do
+      def md5(input) do
+        {:ok, binary_hash} = :crypto.hash(:md5, input)
+        binary_hash
+        |> Base.encode16(case: :lower)
+      end
+    end
+
+    # Example usage
+    input_string = "Hello, World!"
+    md5_hash = MD5Hash.md5(input_string)
+    IO.puts("MD5 Hash of '#{input_string}': #{md5_hash}")
+</code>
+</pre>
+<p>Save this code in a file called md5_hash.ex</p>
+<p>Run via <code>elixir md5_hash.ex</code></p>
+<p></p>
+<p>Elixir has also an <a href="https://hexdocs.pm/iex/1.14/IEx.html">interactive shell</a> that can be started via <code>iex</code></p>
+</body>
+</html>
