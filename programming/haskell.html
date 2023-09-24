@@ -94,6 +94,121 @@
 
   </div>
 </section>
+<p></p>
+<section style="border-style: solid; border-width: 1px;">
+  <div style="padding-left: 10px;">
+    <p><b>Another exemple of programme, this time showing the functional central concept of "monads"</b></p>
+  To run it, import first mtl library
+  <pre>
+    <code>
+      (base) xxx@haskell-test % <b>cabal install mtl</b>
+Resolving dependencies...
+Build profile: -w ghc-9.4.4 -O1
+In order, the following will be built (use -v for more details):
+ - mtl-2.3.1 (lib) (requires download & build)
+Downloading  mtl-2.3.1
+Downloaded   mtl-2.3.1
+Starting     mtl-2.3.1 (lib)
+Building     mtl-2.3.1 (lib)
+Installing   mtl-2.3.1 (lib)
+Completed    mtl-2.3.1 (lib)
+Warning:
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ WARNING: Installation might not be completed as desired! @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+The command "cabal install [TARGETS]" doesn't expose libraries.
+* You might have wanted to add them as dependencies to your package. In this
+case add "mtl" to the build-depends field(s) of your package's .cabal file.
+* You might have wanted to add them to a GHC environment. In this case use
+"cabal install --lib mtl". The "--lib" flag is provisional: see
+https://github.com/haskell/cabal/issues/6481 for more information.
+(base) xxx@haskell-test %
+    </code>
+    Save that program into a file named <b>monad.hs</b> and compile through <b>ghc -o monads monads.hs</b>
+    <code>
+      import Control.Monad.State
+import Control.Monad.Writer
+import Control.Monad.Trans.Except
+
+-- Monade IO : Utilisée pour les entrées/sorties
+main :: IO ()
+main = do
+    putStrLn "Entrez un nombre :"
+    userInput <- getLine
+    let parsedNumber = read userInput :: Int
+    putStrLn ("Vous avez entré : " ++ show parsedNumber)
+
+-- Monade Maybe : Gestion des valeurs optionnelles
+safeDivide :: Int -> Int -> Maybe Int
+safeDivide _ 0 = Nothing
+safeDivide a b = Just (a `div` b)
+
+-- Monade Either : Gestion des erreurs
+divideWithEither :: Int -> Int -> Either String Int
+divideWithEither a 0 = Left "Division par zéro"
+divideWithEither a b = Right (a `div` b)
+
+-- Monade State : Gestion de l'état mutable
+type CounterState = Int
+increment :: State CounterState ()
+increment = modify (+1)
+
+-- Monade Writer : Journalisation des informations
+logNumber :: Int -> Writer [String] Int
+logNumber x = do
+    tell ["L'opération a été effectuée avec succès."]
+    return x
+
+-- Monade ExceptT : Transformer de monade pour gérer les erreurs
+safeDivideWithExcept :: Int -> Int -> ExceptT String IO Int
+safeDivideWithExcept a 0 = throwE "Division par zéro"
+safeDivideWithExcept a b = return (a `div` b)
+
+main2 :: IO ()
+main2 = do
+    putStrLn "Entrez deux nombres pour la division :"
+    input1 <- getLine
+    input2 <- getLine
+    let a = read input1 :: Int
+        b = read input2 :: Int
+
+    -- Utilisation de la monade Maybe
+    case safeDivide a b of
+        Just result -> putStrLn ("Résultat de la division : " ++ show result)
+        Nothing -> putStrLn "Division par zéro"
+
+    -- Utilisation de la monade Either
+    case divideWithEither a b of
+        Right result -> putStrLn ("Résultat de la division : " ++ show result)
+        Left err -> putStrLn ("Erreur : " ++ err)
+
+    -- Utilisation de la monade State
+    let (result, newState) = runState (do
+            increment
+            increment
+            result <- get
+            return (result * 2))
+    putStrLn ("Résultat de l'opération State : " ++ show result ++ ", État final : " ++ show newState)
+
+    -- Utilisation de la monade Writer
+    let (result, log) = runWriter (do
+            result <- logNumber a
+            tell ["Autre message."]
+            return result)
+    putStrLn ("Résultat de l'opération Writer : " ++ show result)
+    putStrLn "Journal :"
+    mapM_ putStrLn log
+
+    -- Utilisation de la monade ExceptT
+    result <- runExceptT (safeDivideWithExcept a b)
+    case result of
+        Right r -> putStrLn ("Résultat de la division avec ExceptT : " ++ show r)
+        Left err -> putStrLn ("Erreur avec ExceptT : " ++ err)
+
+    </code>
+  </pre>
+  </div>
+</section>
 
 <p></p>
 <section style="border-style: solid; border-width: 1px;">

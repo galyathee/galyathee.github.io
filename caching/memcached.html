@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+<h1>Caching with MEMCACHED</h1>
+<p>Caching is a critical component in system design. It plays a crucial role in optimizing systems for efficiency, reliability, and responsiveness. Especially in the so-called "serverless" architectures, we find ourselves with the need to persist information for a short time</p>
+<p>Those situations are, among others:</p>
+<ul>
+    <li><b>Performance Improvement</b>: Caching significantly improves system performance by storing frequently accessed data in a fast and easily accessible location. This reduces the need to repeatedly fetch the same data from slower, more resource-intensive sources like databases or external APIs.</li>
+    <li><b>Latency Reduction</b>: Cached data is typically stored in memory, which has much lower latency than disk or network access. This means that requests for cached data can be fulfilled more quickly, resulting in reduced response times for end-users.</li>
+    <li><b>Scalability</b>: Caching can help distribute the load on backend services and databases. By reducing the number of requests to these resources, caching can prevent them from becoming bottlenecks, allowing the system to handle more concurrent users and requests.</li>
+    <li><b>Cost Savings</b>: Caching can reduce the load on resource-intensive components, such as databases and external APIs. This can result in cost savings because it reduces the need to provision expensive hardware or pay for additional API usage.</li>
+    <li><b>Redundancy and Fault Tolerance</b>: Caches can act as a redundancy layer, providing a copy of critical data in case the primary data source experiences downtime or failures. This helps ensure system availability and resilience.</li>
+    <li><b>Better User Experience</b>: Faster response times and reduced latency lead to a better user experience. Applications that respond quickly are perceived as more responsive and user-friendly.</li>
+    <li><b>Traffic Management</b>: Caching can be used to manage traffic spikes and reduce the impact of sudden surges in requests. It absorbs some of the load, preventing service disruptions during peak usage periods.</li>
+    <li><b>Content Delivery</b>: Caches are commonly used in Content Delivery Networks (CDNs) to distribute content (e.g., images, videos, and web pages) closer to end-users, reducing latency and improving load times.</li>
+    <li><b>Consistency Control</b>: Caching can be employed to manage data consistency in distributed systems. Techniques like caching with expiration and cache-invalidation strategies help ensure that cached data remains up to date.</li>
+    <li><b>Data Transformation</b>: Caches can store preprocessed or transformed data, saving computational resources when generating complex or frequently used data structures.</li>
+    <li><b>Rate Limiting and Security</b>: Caching can be used for rate limiting and security purposes. It can help protect against distributed denial-of-service (DDoS) attacks by absorbing excess traffic and rate-limiting requests.</li>
+    <li><b>Offline Access</b>: Caching can enable offline access to certain data or features by storing relevant content locally on user devices.</li>
+</ul>
+<h2>Here are some glimpses of Memcached to illustrate its use</h2>
+<section style="border-style: solid; border-width: 1px;">
+    <div style="padding-left: 10px;">
+    <p><b>Installation</b> with Homebrew: <code>brew install memcached</code></p>
+    <p>There are several packages in Python to manipulate Memcached, I ended up using pymemcache: <code>pip install pymemcache</code></p>
+    </div>
+</section>
+<p></p>
+<section style="border-style: solid; border-width: 1px;">
+    <div style="padding-left: 10px;">
+    <p>This code in Python shows how to start/stop Memcached, how to insert 1 million key/values, how to read it all and how to delete it.</p>
+        <i><b><u>memcached.py</u></b></i>
+    <pre>
+        <code>
+            import subprocess
+            import time
+            from pymemcache.client.base import Client
+
+            # To start memcached now and restart at login:
+            #  brew services start memcached
+            # Or, if you don't want/need a background service you can just run:
+            #  /opt/homebrew/opt/memcached/bin/memcached -l localhost
+
+            # Record the start time
+            start_time = time.time()
+
+            # Start Memcached server using subprocess
+            memcached_process = subprocess.Popen(['memcached', '-p', '11211'])
+
+            # Wait for Memcached to start (adjust the sleep duration as needed)
+            time.sleep(2)
+
+            # Connect to the Memcached server
+            client = Client(('127.0.0.1', 11211))
+
+            # Loop one million times and store values with unique keys
+            for i in range(1, 1000001):
+                key = f'my_key_{i}'
+                value = f'Value_{i}'
+                client.set(key, value.encode('utf-8'))
+
+            # Retrieve the values
+            for i in range(1, 1000001):
+                key = f'my_key_{i}'
+                value = client.get(key)
+                # print(f"Value for " + key + ": {value.decode('utf-8')}")
+
+            # Add another key-value pair
+            client.set('another_key', '42')
+
+            # Increment the value
+            client.incr('another_key', 10)
+
+            # Retrieve and print the updated value
+            updated_value = client.get('another_key')
+            print(f"Updated value for 'another_key': {updated_value.decode('utf-8')}")
+
+            # Delete a key
+            client.delete('my_key')
+
+            # Check if a key exists
+            key_exists = client.get('my_key')
+            if key_exists is None:
+                print("'my_key' has been deleted.")
+
+            # Stop the Memcached server
+            memcached_process.terminate()
+            memcached_process.wait()
+            print("Memcached server stopped.")
+
+            # Record the end time
+            end_time = time.time()
+
+            # Calculate the elapsed time
+            elapsed_time = end_time - start_time
+
+            # Print the elapsed time in seconds
+            print(f"Elapsed time: {elapsed_time} seconds")
+        </code>
+    </pre>
+    <p></p>
+    <p>The output of the program:</p>
+    <pre>
+        <code>
+            (base) xxx test-python % python3 memcached.py
+            Updated value for 'another_key': 52
+            'my_key' has been deleted.
+            Memcached server stopped.
+            Elapsed time: 27.036142110824585 seconds
+        </code>
+    </pre>
+</div>
+</section>
+<p></p>
+<section style="border-style: solid; border-width: 1px;">
+    <div style="padding-left: 10px;">
+    <p>The Client class in the pymemcache library provides various methods to interact with a Memcached server. We saw {get, set, incr, delete}. Let's have a look now at { decr, get_many, set_many}</p>
+
+
+    <pre>
+    <b>decr(key, delta=1)</b> -> Decrement the value associated with a key by a specified delta
+    <code>
+        from pymemcache.client.base import Client
+
+        client = Client(('127.0.0.1', 11211))
+        client.set('counter', '10')
+        <b>client.decr('counter', 3)</b>
+        value = client.get('counter')
+        print(f"Updated counter value: {value.decode('utf-8')}")
+    </code>
+    </pre>
+
+    <pre>
+    <b>get_many(keys)</b> -> Retrieve multiple values from Memcached by a list of keys
+    <code>
+        from pymemcache.client.base import Client
+
+        client = Client(('127.0.0.1', 11211))
+        keys = ['key1', 'key2', 'key3']
+        <b>values = client.get_many(keys)</b>
+        print("Values for keys:")
+        for key, value in values.items():
+        print(f"{key}: {value.decode('utf-8')}")
+    </code>
+    </pre>
+
+    <pre>
+    <b>set_many(mapping, expire=0)</b> -> Set multiple key-value pairs in Memcached using a dictionary
+    <code>
+        from pymemcache.client.base import Client
+
+        client = Client(('127.0.0.1', 11211))
+        data = {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'}
+        <b>client.set_many(data)</b>
+    </code>
+    </pre>
+</div>
+</section>
+</body>
+</html>
