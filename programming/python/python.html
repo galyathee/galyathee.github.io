@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+<h1>Programming with PYTHON / CYTHON / MATPLOTLIB</h1>
+<p>Let's use <a href="https://cython.org/">cython</a> to define a function and use that compiled function inside python to accelerate code execution.</p>
+<section style="border-style: solid; border-width: 1px;">
+    <div style="padding-left: 10px;">
+      <pre>
+        Write the function is_prime into a file named prime_check.pyx
+        <code>
+          def is_prime(int n):
+          if n < 2:
+              return False
+          if n == 2:
+              return True
+          if n % 2 == 0:
+              return False
+          cdef int max_divisor = int(n**0.5) + 1
+          cdef int d
+          for d in range(3, max_divisor, 2):
+              if n % d == 0:
+                  return False
+          return True
+        </code>
+        Note the use of cdef to definef typed variables, to accelerate code execution.
+      </pre>
+    </div>
+</section>
+<p></p>
+<section style="border-style: solid; border-width: 1px;">
+    <div style="padding-left: 10px;">
+      <pre>
+        Create a file setup.py
+        <code>
+          from setuptools import setup
+          from Cython.Build import cythonize
+
+          setup(
+            ext_modules = cythonize("prime_check.pyx")
+          )
+        </code>
+      </pre>
+    </div>
+</section>
+<p>Compile the cython module using <code>python setup.py build_ext --inplace</code></p>
+<p>We can now call the Cython function using <code>from prime_check import is_prime</code></p>
+<section style="border-style: solid; border-width: 1px;">
+  <div>
+    Here is an example of program generating a 3D representation of prime numbers:
+  </div>
+  <div>
+    <pre>
+    <code>
+      import matplotlib.pyplot as plt
+      import numpy as np
+      from matplotlib.animation import FuncAnimation
+      from numba import jit
+      from prime_check import is_prime
+
+      #def primes_to_3d_coords(prime):
+      #    s = str(prime).rjust(3, '0')
+      #    return int(s[-3]), int(s[-2]), int(s[-1])
+
+      def primes_to_3d_coords(prime):
+      s = str(prime).rjust(6, '0')
+      x = int(s[0]) * 10**5 + int(s[1]) * 10**4
+      y = int(s[2]) * 10**3 + int(s[3]) * 10**2
+      z = int(s[4]) * 10**1 + int(s[5]) * 10**0
+      return x, y, z
+
+      primes = [i for i in range(2, 1000) if is_prime(i)][:1000]
+      coords = np.array([primes_to_3d_coords(p) for p in primes])
+
+      fig = plt.figure()
+      ax = fig.add_subplot(111, projection='3d')
+      sc = ax.scatter([], [], [], c='r', marker='o')
+
+      #ax.set_xlim([0, 19])
+      #ax.set_ylim([0, 19])
+      #ax.set_zlim([0, 19])
+      ax.set_xlim([0, 110000])  # Légèrement supérieur à 10^5 + 9 * 10^4 pour couvrir la gamme
+      ax.set_ylim([0, 11000])   # Légèrement supérieur à 10^3 + 9 * 10^2 pour couvrir la gamme
+      ax.set_zlim([0, 110])     # Légèrement supérieur à 10^1 + 9 * 10^0 pour couvrir la gamme
+
+      ax.set_xlabel('X Label')
+      ax.set_ylabel('Y Label')
+      ax.set_zlabel('Z Label')
+
+      def init():
+      return sc,
+
+      def update(num):
+      # Print the prime number and its decomposition
+      prime_num = primes[num - 1]
+      x, y, z = coords[num - 1]
+      print(f"Nombre premier: {prime_num}, décomposition -> x: {x}, y: {y}, z: {z}")
+      sc._offsets3d = (coords[:num, 0], coords[:num, 1], coords[:num, 2])
+      return sc,
+
+      ani = FuncAnimation(fig, update, frames=len(primes)+1, init_func=init, blit=False)
+
+      plt.show()
+    </code>
+    </pre>
+  </div>
+</section>
+</body>
+</html>
